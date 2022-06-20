@@ -84,6 +84,7 @@ public class UserController {
 		//no값으로 세션 값 불러오기
 		int no = authUser.getNo();
 		UserVo userModify = userService.getUserModify(no); 
+		
 		//가져온정보 Model에 저장
 		model.addAttribute("user",userModify);
 		
