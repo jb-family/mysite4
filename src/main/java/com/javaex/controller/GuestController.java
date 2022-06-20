@@ -50,7 +50,7 @@ public class GuestController {
 		System.out.println("GuestController > deleteForm");
 		
 		//모델에 no값 저장하기.
-		model.addAttribute("no",no);
+		model.addAttribute("no", no);
 		return "guestbook/deleteForm";
 	}
 	
@@ -60,8 +60,6 @@ public class GuestController {
 		//no값 입력해서 유저 정보 가져오기 
 		GuestVo user = guestService.getUser(no);
 		
-		System.out.println("user정보"+user);
-		System.out.println("입력한비밀번호"+password);
 		if(user.getPassword().equals(password)) {
 			guestService.delete(user);
 			System.out.println("삭제되었습니다.");

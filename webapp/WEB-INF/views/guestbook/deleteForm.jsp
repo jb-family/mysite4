@@ -68,8 +68,7 @@
 								<td><a href="/mysite4/main">[메인으로 돌아가기]</a></td>
 							</tr>
 						</table>
-						<input type='hidden' name="no" value="${no}">
-						<input type='hidden' name="password" value="${password}">
+						<input type='text' name="no" value="${no}">
 					</form>
 					
 				</div>
