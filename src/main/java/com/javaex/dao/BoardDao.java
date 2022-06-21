@@ -15,7 +15,7 @@ public class BoardDao {
 	private SqlSession sqlSession;
 	
 
-	//리스트 불러오기
+	//리스트 불러오기 (검색기능 +)
 	public List<BoardVo> selectList(String keyword) {
 		System.out.println("BoardDao > list");
 		System.out.println("???????"+keyword);
@@ -72,13 +72,5 @@ public class BoardDao {
 		return count;
 	}
 	
-	/*
-	// 검색
-	public List<BoardVo> selectList(String keyword) {
-		System.out.println("BoardService > search");
-		
-		List<BoardVo> search = sqlSession.selectList(keyword);
-		return search;
-	}
-	*/
+	
 }

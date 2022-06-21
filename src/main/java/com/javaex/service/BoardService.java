@@ -14,7 +14,7 @@ public class BoardService {
 	@Autowired
 	private BoardDao boardDao;
 	
-	//리스트 불러오기
+	//리스트 불러오기 (검색기능 +)
 	public List<BoardVo> selectList(String keyword) {
 		System.out.println("BoardService > list");
 		
@@ -71,15 +71,6 @@ public class BoardService {
 		return count;
 	}
 	
-	/*
-	//검색
-	public List<BoardVo> selectList(String keyword) {
-		System.out.println("BoardService > search");
-		
-		List<BoardVo> search = boardDao.selectList(keyword);
-		return search;
-	} 
-	*/
-	
+
 	
 }

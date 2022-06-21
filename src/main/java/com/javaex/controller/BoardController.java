@@ -25,7 +25,7 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
-	//리스트 불러오기
+	//리스트 불러오기 (검색기능 +)
 	@RequestMapping(value="/list", method = {RequestMethod.GET, RequestMethod.POST})
 	public String list(Model model, @RequestParam(value = "keyword", defaultValue = "", required = false) String keyword) {
 		System.out.println("BoardController > list");
@@ -115,17 +115,7 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-	/*
-	//검색
-	@RequestMapping(value="/search", method = {RequestMethod.GET, RequestMethod.POST})
-	public String search(@RequestParam("keyword") String keyword) {
-		System.out.println("BoardController > search");
-		
-		List<BoardVo> search = boardService.selectList(keyword); 
-		System.out.println(search);
-		return "redirect:/board/list";
-	}
-	*/
+	
 	
 	
 }
