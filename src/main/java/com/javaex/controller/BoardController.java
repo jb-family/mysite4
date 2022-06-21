@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javaex.service.BoardService;
 import com.javaex.vo.BoardVo;
@@ -26,10 +27,11 @@ public class BoardController {
 	
 	//리스트 불러오기
 	@RequestMapping(value="/list", method = {RequestMethod.GET, RequestMethod.POST})
-	public String list(Model model) {
+	public String list(Model model, @RequestParam(value = "keyword", defaultValue = "", required = false) String keyword) {
 		System.out.println("BoardController > list");
 		
-		List<BoardVo> bList = boardService.selectList();
+		List<BoardVo> bList = boardService.selectList(keyword);
+		System.out.println(bList);
 		model.addAttribute("bList",bList);
 		
 		return "board/list";
@@ -62,7 +64,7 @@ public class BoardController {
 		boardService.hitUp(no);
 		
 		//작성한 글 보기
-		BoardVo info = boardService.boardInfo(no);
+		BoardVo info = boardService.getUser(no);
 		model.addAttribute("info", info);
 		
 		return "board/read";
@@ -76,12 +78,10 @@ public class BoardController {
 		//세션 가져오기 (userNo)
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		int userNo = authUser.getNo();
-		System.out.println("userNo " + userNo); // 3
-		System.out.println("no " + no);	// 14
 		
 		//no를 넘겨서 유저 정보 가져오기
 		BoardVo getUser = boardService.getUser(no);
-		
+			
 		if(getUser.getUserNo() != userNo) {
 			System.out.println("삭제할 수 없습니다.");
 			return "redirect:/board/list";
@@ -115,6 +115,17 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
+	/*
+	//검색
+	@RequestMapping(value="/search", method = {RequestMethod.GET, RequestMethod.POST})
+	public String search(@RequestParam("keyword") String keyword) {
+		System.out.println("BoardController > search");
+		
+		List<BoardVo> search = boardService.selectList(keyword); 
+		System.out.println(search);
+		return "redirect:/board/list";
+	}
+	*/
 	
 	
 }

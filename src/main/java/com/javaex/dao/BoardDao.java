@@ -16,10 +16,10 @@ public class BoardDao {
 	
 
 	//리스트 불러오기
-	public List<BoardVo> selectList() {
+	public List<BoardVo> selectList(String keyword) {
 		System.out.println("BoardDao > list");
-		
-		List<BoardVo> bList = sqlSession.selectList("board.selectList");
+		System.out.println("???????"+keyword);
+		List<BoardVo> bList = sqlSession.selectList("board.selectList", keyword);
 		return bList;
 	}
 	
@@ -72,4 +72,13 @@ public class BoardDao {
 		return count;
 	}
 	
+	/*
+	// 검색
+	public List<BoardVo> selectList(String keyword) {
+		System.out.println("BoardService > search");
+		
+		List<BoardVo> search = sqlSession.selectList(keyword);
+		return search;
+	}
+	*/
 }

@@ -15,10 +15,10 @@ public class BoardService {
 	private BoardDao boardDao;
 	
 	//리스트 불러오기
-	public List<BoardVo> selectList() {
+	public List<BoardVo> selectList(String keyword) {
 		System.out.println("BoardService > list");
 		
-		List<BoardVo> bList = boardDao.selectList();
+		List<BoardVo> bList = boardDao.selectList(keyword);
 		return bList;
 	}
 	
@@ -71,6 +71,15 @@ public class BoardService {
 		return count;
 	}
 	
+	/*
+	//검색
+	public List<BoardVo> selectList(String keyword) {
+		System.out.println("BoardService > search");
+		
+		List<BoardVo> search = boardDao.selectList(keyword);
+		return search;
+	} 
+	*/
 	
 	
 }
