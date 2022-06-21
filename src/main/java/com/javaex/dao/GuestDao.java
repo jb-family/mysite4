@@ -12,7 +12,7 @@ import com.javaex.vo.GuestVo;
 public class GuestDao {
 	
 	@Autowired
-	SqlSession sqlSession;
+	private SqlSession sqlSession;
 	
 	//리스트
 	public List<GuestVo> selectList() {

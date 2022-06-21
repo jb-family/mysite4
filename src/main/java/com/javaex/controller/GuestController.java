@@ -15,13 +15,14 @@ import com.javaex.service.GuestService;
 import com.javaex.vo.GuestVo;
 
 @Controller
+@RequestMapping(value="/guestbook")
 public class GuestController {
 	
 	@Autowired
-	GuestService guestService;
+	private GuestService guestService;
 	
 	//리스트
-	@RequestMapping(value="/guestbook/addList", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/addList", method = {RequestMethod.GET, RequestMethod.POST})
 	public String addList(Model model) {
 		System.out.println("GuestController > addList");
 		
@@ -36,7 +37,7 @@ public class GuestController {
 	}
 	
 	//추가
-	@RequestMapping(value="/guestbook/add", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/add", method = {RequestMethod.GET, RequestMethod.POST})
 	public String add(@ModelAttribute GuestVo guestVo) {
 		System.out.println("GuestController > add");
 		
@@ -45,7 +46,7 @@ public class GuestController {
 	}
 	
 	//삭제폼
-	@RequestMapping(value="/guestbook/deleteForm/{no}", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/deleteForm/{no}", method = {RequestMethod.GET, RequestMethod.POST})
 	public String deleteForm(Model model, @PathVariable ("no") int no) {
 		System.out.println("GuestController > deleteForm");
 		
@@ -54,7 +55,7 @@ public class GuestController {
 		return "guestbook/deleteForm";
 	}
 	
-	@RequestMapping(value="/guestbook/delete", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/delete", method = {RequestMethod.GET, RequestMethod.POST})
 	public String delete(@RequestParam ("no") int no, @RequestParam ("password") String password) {
 		System.out.println("GuestController > delete");
 		//no값 입력해서 유저 정보 가져오기 

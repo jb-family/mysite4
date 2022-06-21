@@ -12,7 +12,7 @@ import com.javaex.vo.GuestVo;
 public class GuestService {
 	
 	@Autowired
-	GuestDao guestDao;
+	private GuestDao guestDao;
 	
 	//리스트
 	public List<GuestVo> selectList () {
