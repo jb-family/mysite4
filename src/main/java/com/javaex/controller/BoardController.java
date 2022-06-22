@@ -64,9 +64,6 @@ public class BoardController {
 	public String read(Model model, @PathVariable("no") int no) {
 		System.out.println("BoardController > read");
 		
-		
-		
-		//작성한 글 보기
 		BoardVo info = boardService.read(no);
 		model.addAttribute("info", info);
 		
