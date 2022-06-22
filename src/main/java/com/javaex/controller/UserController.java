@@ -100,7 +100,8 @@ public class UserController {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		
 		//userVo에 세션에 있는 no값 넣기
-		userVo.setNo(authUser.getNo());
+		int userNo = authUser.getNo();
+		userVo.setNo(userNo);
 		
 		//업데이트
 		userService.modify(userVo);

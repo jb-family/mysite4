@@ -36,7 +36,6 @@ public class BoardService {
 		System.out.println("BoardService > hitUp");
 		
 		int count = boardDao.hitUp(no);
-		System.out.println("service "+count);
 		return count;
 	}
 	
@@ -61,6 +60,7 @@ public class BoardService {
 		System.out.println("BoardService > update");
 		
 		int count = boardDao.update(boardVo);
+		System.out.println("boardVooooo111111"+boardVo);
 		return count;
 	}
 	

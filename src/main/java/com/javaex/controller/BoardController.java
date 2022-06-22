@@ -31,7 +31,6 @@ public class BoardController {
 		System.out.println("BoardController > list");
 		
 		List<BoardVo> bList = boardService.selectList(keyword);
-		System.out.println(bList);
 		model.addAttribute("bList",bList);
 		
 		return "board/list";
@@ -48,8 +47,13 @@ public class BoardController {
 	
 	//작성 글 추가
 	@RequestMapping(value="/write", method = {RequestMethod.GET, RequestMethod.POST})
-	public String write(@ModelAttribute BoardVo boardVo) {
+	public String write(@ModelAttribute BoardVo boardVo, HttpSession session) {
 		System.out.println("BoardController > write");
+		
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		int userNo = authUser.getNo();
+		
+		boardVo.setUserNo(userNo);
 		
 		boardService.insert(boardVo);
 		return "redirect:/board/list";
@@ -96,6 +100,7 @@ public class BoardController {
 	public String modify(@ModelAttribute BoardVo boardVo) {
 		System.out.println("BoardController > modify");
 		
+				
 		boardService.update(boardVo);
 		
 		return "redirect:/board/list";

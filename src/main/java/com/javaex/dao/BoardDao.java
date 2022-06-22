@@ -18,7 +18,6 @@ public class BoardDao {
 	//리스트 불러오기 (검색기능 +)
 	public List<BoardVo> selectList(String keyword) {
 		System.out.println("BoardDao > list");
-		System.out.println("???????"+keyword);
 		List<BoardVo> bList = sqlSession.selectList("board.selectList", keyword);
 		return bList;
 	}
@@ -62,6 +61,7 @@ public class BoardDao {
 		System.out.println("BoardService > update");
 		
 		int count = sqlSession.update("board.update", boardVo);
+		System.out.println("boardVooooo22222"+boardVo);
 		return count;
 	}
 	
