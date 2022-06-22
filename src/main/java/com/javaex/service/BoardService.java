@@ -64,6 +64,17 @@ public class BoardService {
 		return count;
 	}
 	
+	
+	public BoardVo read(int no) {
+		//조회수 증가(조회수 업데이트)
+		boardDao.hitUp(no);
+		
+		//작성한 글 보기
+		BoardVo count = boardDao.getUser(no);
+		
+		return count;
+	}
+	
 
 	
 }

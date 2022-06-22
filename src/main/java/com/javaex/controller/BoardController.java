@@ -64,11 +64,10 @@ public class BoardController {
 	public String read(Model model, @PathVariable("no") int no) {
 		System.out.println("BoardController > read");
 		
-		//조회수 증가(조회수 업데이트)
-		boardService.hitUp(no);
+		
 		
 		//작성한 글 보기
-		BoardVo info = boardService.getUser(no);
+		BoardVo info = boardService.read(no);
 		model.addAttribute("info", info);
 		
 		return "board/read";
@@ -100,7 +99,6 @@ public class BoardController {
 	public String modify(@ModelAttribute BoardVo boardVo) {
 		System.out.println("BoardController > modify");
 		
-				
 		boardService.update(boardVo);
 		
 		return "redirect:/board/list";
