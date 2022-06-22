@@ -30,13 +30,6 @@ public class BoardService {
 		return count;
 	}
 	
-	//유저가 작성한 글 보기
-	public BoardVo boardInfo(int no) {
-		System.out.println("BoardService > boardInfo");
-		
-		BoardVo info = boardDao.boardInfo(no);
-		return info;
-	}
 	
 	//조회수 증가(조회수 업데이트)
 	public int hitUp(int no) {

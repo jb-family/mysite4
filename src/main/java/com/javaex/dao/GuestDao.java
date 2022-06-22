@@ -18,7 +18,7 @@ public class GuestDao {
 	public List<GuestVo> selectList() {
 		System.out.println("GuestDao > selectList");
 		
-		List<GuestVo> gList = sqlSession.selectList("guest.selectList", sqlSession);
+		List<GuestVo> gList = sqlSession.selectList("guest.selectList");
 		return gList;
 	}
 	

@@ -72,25 +72,12 @@ public class BoardController {
 	
 	//작성한 글 삭제
 	@RequestMapping(value="/delete/{no}", method = {RequestMethod.GET, RequestMethod.POST})
-	public String delete(@PathVariable("no") int no, HttpSession session) {
+	public String delete(@PathVariable("no") int no) {
 		System.out.println("BoardController > delete");
 		
-		//세션 가져오기 (userNo)
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		int userNo = authUser.getNo();
-		
-		//no를 넘겨서 유저 정보 가져오기
-		BoardVo getUser = boardService.getUser(no);
 			
-		if(getUser.getUserNo() != userNo) {
-			System.out.println("삭제할 수 없습니다.");
-			return "redirect:/board/list";
-		}else {
 			boardService.delete(no);
-			System.out.println("삭제되었습니다.");
 			return "redirect:/board/list";
-		}
-		
 	}
 	
 	//글 수정폼
@@ -101,7 +88,6 @@ public class BoardController {
 		
 		BoardVo userModify = boardService.getUser(no);
 		model.addAttribute("userModify", userModify);
-		System.out.println("modmodmodmo"+userModify);
 		return "board/modifyForm";
 	}
 	

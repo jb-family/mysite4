@@ -31,13 +31,6 @@ public class BoardDao {
 		return count;
 	}
 	
-	//유저가 작성한 글 보기
-	public BoardVo boardInfo(int no) {
-		System.out.println("BoardDao > boardInfo");
-		
-		BoardVo info = sqlSession.selectOne("board.info", no);
-		return info;
-	}
 	
 	//조회수 증가(조회수 업데이트)
 	public int hitUp(int no) {
