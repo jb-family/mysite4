@@ -32,7 +32,6 @@ public class BoardController {
 		
 		List<BoardVo> bList = boardService.selectList(keyword);
 		model.addAttribute("bList",bList);
-		
 		return "board/list";
 	}
 	
