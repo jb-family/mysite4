@@ -20,13 +20,18 @@
 			        ,content
 			        ,to_char(reg_date, 'YYYY-MM-DD-HH:MI:SS') "reg_date"
 			        from    guestbook
+			        order by no desc
 		]]>
 	</select>
 	
 	<insert id="insert" parameterType="com.javaex.vo.GuestVo">
 		<![CDATA[
 			insert into guestbook
-			values(SEQ_GUESTBOOK_NO.nextval,#{name},#{password},#{content},sysdate)
+			values(SEQ_GUESTBOOK_NO.nextval,
+				   #{name},
+				   #{password},
+				   #{content},
+				   sysdate)
 		]]>
 	</insert>
 	
@@ -38,7 +43,8 @@
 			        ,content
 			        ,to_char(reg_date, 'YYYY-MM-DD-HH:MI:SS') "reg_date"
 			        from    guestbook
-			where no = #{no} 
+			where no = #{no}
+			order by no desc 
 		]]>
 	</select>
 	
@@ -50,6 +56,35 @@
 			
 		]]>
 	</delete>
+	
+	
+	
+	
+	<!-- 방명록 저장(ajax) -->
+	<insert id="insertSelectKey" parameterType="com.javaex.vo.GuestVo">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+          select seq_guestbook_no.nextval from dual
+       	</selectKey>
+		<![CDATA[
+			insert into guestbook
+			values(#{no}, #{name}, #{password}, #{content}, sysdate)
+		]]>
+	</insert>
+	
+	<!-- 저장한 1개의 데이터 가져오기 -->
+	<select id="getGuest" parameterType="int" resultMap="resultMapGuest">
+		<![CDATA[
+			select  no
+			        ,name
+			        ,password
+			        ,content
+			        ,to_char(reg_date, 'YYYY-MM-DD-HH:MI:SS') "reg_date"
+			        from    guestbook
+			where no = #{no} 
+			order by no desc
+		]]>
+	</select>
+	
 	
 	
 	

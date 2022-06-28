@@ -48,8 +48,21 @@ public class GuestService {
 	}
 	
 	
-	
-	
+	// 방명록저장(ajax용)
+	public GuestVo addGuest(GuestVo guestVo) {
+		System.out.println("GuestService > addGuest()");
+		
+		System.out.println("쿼리문 실행 전 ==>"+ guestVo);	// no값 x
+		int count = guestDao.insertGuest(guestVo);
+		System.out.println("쿼리문 실행 후 ==>"+ guestVo);	// no값 생성(nextval)
+		
+		int no = guestVo.getNo();
+		//저장한 1개의 데이터 가져오기
+		GuestVo gVo = guestDao.getGuest(no);
+		
+		
+		return gVo;
+	}
 	
 	
 	

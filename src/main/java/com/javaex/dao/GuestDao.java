@@ -46,9 +46,22 @@ public class GuestDao {
 		return count;
 	}
 	
+	// 방명록저장(ajax용)
+	public int insertGuest(GuestVo guestVo) {
+		System.out.println("GuestDao > insertGuest()");
+		int count = sqlSession.insert("guest.insertSelectKey", guestVo);
+		
+		
+		return count;
+	}
 	
-	
-	
-	
+	//저장한 1개의 데이터 가져오기
+	public GuestVo getGuest(int no) {
+		System.out.println("GuestDao > getGuest()");
+		
+		GuestVo guestVo = sqlSession.selectOne("guest.getGuest", no);
+		
+		return guestVo;
+	}
 
 }
