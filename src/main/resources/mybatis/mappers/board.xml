@@ -28,8 +28,8 @@
 			where   u.no = b.user_no
 		]]>
 		
-		<if test="keyword != '' and keyword != null ">
-			and     b.title like '%' || #{keyword} || '%'
+		<if test="value != ''  and  value != null ">  
+			and title like '%'||#{keyword}||'%'   
 		</if>
 		
 		<![CDATA[

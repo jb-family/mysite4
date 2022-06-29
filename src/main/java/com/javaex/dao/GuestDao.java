@@ -58,10 +58,18 @@ public class GuestDao {
 	//저장한 1개의 데이터 가져오기
 	public GuestVo getGuest(int no) {
 		System.out.println("GuestDao > getGuest()");
-		
 		GuestVo guestVo = sqlSession.selectOne("guest.getGuest", no);
 		
 		return guestVo;
 	}
+	
+	// 방명록삭제 (ajax용)
+	public int guestDelete(GuestVo guestVo) {
+		System.out.println("GuestDao > removeGuest()");
+		
+		return sqlSession.delete("guest.delete", guestVo);
+		
+	}
 
+	
 }

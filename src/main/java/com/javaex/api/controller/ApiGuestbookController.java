@@ -4,9 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javaex.service.GuestService;
@@ -40,12 +43,24 @@ public class ApiGuestbookController {
 	
 	//방명록 저장
 	@ResponseBody
-	@RequestMapping(value="/api/guestbook/add")
+	@RequestMapping(value="/api/guestbook/add", method = {RequestMethod.GET, RequestMethod.POST})
 	public GuestVo add(@ModelAttribute GuestVo guestVo) {
-		System.out.println("GuestService > add()");
+		System.out.println("ApiGuestbookController > add()");
 		GuestVo gVo = guestService.addGuest(guestVo);
 		System.out.println(gVo);
 		return gVo;
+	}
+	
+	//방명록 삭제
+	@ResponseBody
+	@RequestMapping(value="/api/guestbook/remove", method = {RequestMethod.GET, RequestMethod.POST})
+	public String remove(@ModelAttribute GuestVo guestVo) {
+		System.out.println("ApiGuestbookController > remove()");
+		
+		String state = guestService.removeGuest(guestVo);
+		System.out.println(state);
+		return state;
+		
 	}
 	
 }

@@ -48,7 +48,7 @@ public class GuestService {
 	}
 	
 	
-	// 방명록저장(ajax용)
+	//방명록저장(ajax용)
 	public GuestVo addGuest(GuestVo guestVo) {
 		System.out.println("GuestService > addGuest()");
 		
@@ -64,6 +64,21 @@ public class GuestService {
 		return gVo;
 	}
 	
-	
+	//방명록삭제(ajax용)
+	public String removeGuest(GuestVo guestVo) {
+		System.out.println("GuestService > removeGuest()");
+		
+		String state;
+		
+		int count = guestDao.guestDelete(guestVo);
+		
+		if(count > 0) {
+			state = "succeess";
+		}else {
+			state = "fail";
+		}
+		
+		return state;
+	}
 	
 }
