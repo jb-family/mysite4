@@ -46,6 +46,7 @@ public class GuestDao {
 		return count;
 	}
 	
+	
 	// 방명록저장(ajax용)
 	public int insertGuest(GuestVo guestVo) {
 		System.out.println("GuestDao > insertGuest()");
@@ -70,6 +71,5 @@ public class GuestDao {
 		return sqlSession.delete("guest.delete", guestVo);
 		
 	}
-
 	
 }

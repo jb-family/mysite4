@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,6 +52,21 @@ public class ApiGuestbookController {
 		return gVo;
 	}
 	
+	
+	//방명록 저장 (JSON사용 시 RequestBody에 저장)
+	@ResponseBody
+	@RequestMapping(value="/api/guestbook/add2", method = {RequestMethod.GET, RequestMethod.POST})
+	public GuestVo add2(@RequestBody GuestVo guestVo) {
+		System.out.println("ApiGuestbookController > add2()");
+		System.out.println(guestVo);
+		
+		GuestVo gVo = guestService.addGuest(guestVo);
+		System.out.println(gVo);
+		return gVo;
+	}
+	
+	
+	
 	//방명록 삭제
 	@ResponseBody
 	@RequestMapping(value="/api/guestbook/remove", method = {RequestMethod.GET, RequestMethod.POST})
@@ -60,7 +76,8 @@ public class ApiGuestbookController {
 		String state = guestService.removeGuest(guestVo);
 		System.out.println(state);
 		return state;
-		
 	}
+	
+	
 	
 }

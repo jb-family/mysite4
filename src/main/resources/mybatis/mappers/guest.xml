@@ -57,9 +57,6 @@
 		]]>
 	</delete>
 	
-	
-	
-	
 	<!-- 방명록 저장(ajax) -->
 	<insert id="insertSelectKey" parameterType="com.javaex.vo.GuestVo">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
@@ -84,7 +81,6 @@
 			order by no desc
 		]]>
 	</select>
-	
 	
 
 	

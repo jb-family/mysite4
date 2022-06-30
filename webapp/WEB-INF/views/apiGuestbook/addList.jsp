@@ -140,7 +140,57 @@
 		//리스트 요청
 		fetchList();
 	});
+	
+	
+	
+	//button -> submit 이벤트
+	//jquery 요청(jquery -> json)
+	$("#btnSubmit").on("click", function() {
+		console.log("저장버튼클릭");
 		
+		//데이터 가져오기 (value)
+		var name = $("[name='name']").val();
+		var password = $("[name='password']").val();
+		var content = $("[name='content']").val();
+
+		var guestVo = {
+			name: name,
+			password: password,
+			content: content
+		};
+		
+		$.ajax({
+			//url : "${pageContext.request.contextPath}/api/guestbook/add?name="+name+"&password="+password+"&content="+content,		
+			url : "${pageContext.request.contextPath}/api/guestbook/add2",		
+			type : "post",
+			contentType : "application/json",
+			//기존 객체를 파라미터로 보내던것을 JSON.stringify 사용 시 객체를 JSON으로 바꿔준다.
+			data : JSON.stringify(guestVo),	//파라미터 정리된다.
+			
+			dataType : "json",
+			success : function(gVo){
+				render(gVo, "up");
+				
+				//입력폼 초기화
+				$("[name='name']").val("");
+				$("[name='password']").val("");
+				$("[name='content']").val("");
+				
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+		
+	})
+		
+	
+	
+	
+	
+	
+	/*
+	//기존방식 jquery 파란미터
 	//button -> submit 이벤트
 	$("#btnSubmit").on("click", function() {
 		console.log("저장버튼클릭");
@@ -181,7 +231,7 @@
 		});
 		
 	})
-		
+		 */
 	
 	// 리스트의 삭제버튼 눌렀을 때 이벤트
 	$("#listArea").on("click", ".btnModal", function() {
@@ -248,6 +298,7 @@
 					$("#delModal").modal("hide");
 				//실패 삭제x
 				}else {
+					
 					alert("비밀번호를 다시 입력해주세요.");
 				}
 				

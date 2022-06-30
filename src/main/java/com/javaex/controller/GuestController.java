@@ -42,6 +42,7 @@ public class GuestController {
 		System.out.println("GuestController > add");
 		
 		guestService.insert(guestVo);
+		System.out.println(guestVo);
 		return "redirect:/guestbook/addList";
 	}
 	
