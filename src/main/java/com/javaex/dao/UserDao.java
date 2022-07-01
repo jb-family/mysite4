@@ -43,6 +43,14 @@ public class UserDao {
 	}
 	
 	
+	// 정보가져오기
+	public UserVo getIdUser(UserVo userVo) {
+		System.out.println("UserDao > getIdUser()");
+		
+		
+		UserVo getIdUser = sqlSession.selectOne("user.getIdUser", userVo);
+		return getIdUser;
+	}
 	
 	
 }

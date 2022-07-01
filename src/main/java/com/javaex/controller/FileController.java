@@ -23,7 +23,7 @@ public class FileController {
    
    @RequestMapping(value="/fileupload/upload", method= {RequestMethod.GET,RequestMethod.POST})
    public String upload(@RequestParam("file") MultipartFile file, Model model) { //모든 파일을 다 담을수잇는 (pom세팅)
-      System.out.println("FileController>upload"); //MultipartFile 은 파일첨부가 안되있어서 되있는척을함
+      System.out.println("FileController>upload"); //MultipartFile 은 파일첨부를 해도 안해도 있는척함.
       System.out.println(file.getOriginalFilename());//그래서 오리지날파일네임을 사용해서 원래 파일이름 
       
       String saveName = fileService.save(file);
@@ -32,5 +32,8 @@ public class FileController {
       
       return "fileupload/result";
    }
+   
+   
+   
    
 }

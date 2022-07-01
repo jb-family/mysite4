@@ -8,6 +8,9 @@
 <link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/assets/css/user.css" rel="stylesheet" type="text/css">
 
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.js"></script>
+
 </head>
 
 <body>
@@ -47,13 +50,14 @@
 	
 				<div id="user">
 					<div id="joinForm">
-						<form action="${pageContext.request.contextPath}/user/joinOk" method="get">
+						<form id="join-form" action="${pageContext.request.contextPath}/user/joinOk" method="get">
 	
 							<!-- 아이디 -->
 							<div class="form-group">
 								<label class="form-text" for="input-uid">아이디</label> 
 								<input type="text" id="input-uid" name="id" value="" placeholder="아이디를 입력하세요">
-								<button type="button" id="">중복체크</button>
+								<button type="button" id="idCheck">중복체크</button>
+								<div id="checkId"></div>
 							</div>
 	
 							<!-- 비밀번호 -->
@@ -110,5 +114,104 @@
 	<!-- //wrap -->
 
 </body>
+
+<script type="text/javascript">
+	
+	
+	$("#join-form").on("submit",function(){
+	    console.log("즐");
+	    
+	     var id = $("#input-uid").val();
+	     var password = $("#input-pass").val();
+	     var name = $("#input-name").val(); 
+	     
+	    if(id == ""|| id == null){
+	       alert("아이디를 입력해 주세요.");
+	       return false
+	    } 
+	    
+	    //password =="" || password == ""
+	    if(password.length < 8){
+	       alert("비밀번호를 확인해 주세요.");
+	       return false
+	    }
+	    
+	    if(name == null || name == ""){
+	       alert("이름을 입력해주세요");
+	       return false
+	    }
+	    
+	    //약관동의
+	    var agree = $("#chk-agree").is(":checked");
+	    
+	    if(agree == false){
+	       alert("약관에 동의해주세요.");
+	       return false
+	    }
+	    
+	    return true
+	    
+	    
+	 });
+
+
+	$("#idCheck").on("click", function() {
+	
+		var idValue = $("#input-uid").val();
+		
+		var userVo = {
+				id : idValue
+		}
+		
+		$.ajax({
+					
+			url : "${pageContext.request.contextPath}/api/user/userCheck",		
+			type : "post",
+			//contentType : "application/json",	// 보낼때 json으로 보내려고 한다면 contentType : "application/json", 사용하면 된다.
+			//기존 객체를 파라미터로 보내던것을 JSON.stringify 사용 시 객체를 JSON으로 바꿔준다.
+			data : userVo,	//파라미터 정리된다.
+			
+			dataType : "json",
+			success : function(idCheck){
+				
+				console.log($("#input-uid").val());
+				
+				if(idCheck === "success") {
+					$("#checkId").show();
+					$("#checkId").css("color", "blue");
+					$("#checkId").css("text-align", "center");
+					$("#checkId").width("500px");
+					$("#checkId").text("사용할 수 있는 아이디입니다.");
+					$("#input-uid").val("");
+					
+				}else if(idCheck === "fail") {
+					$("#checkId").show();
+					$("#checkId").css("color", "red");
+					$("#checkId").css("text-align", "center");
+					$("#checkId").width("500px");
+					$("#checkId").text("사용할 수 없는 아이디입니다.");
+					$("#input-uid").val("");
+				}
+
+				
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+		
+		
+	
+		
+	})
+	
+	
+	
+	
+	
+</script>
+
+
+
 
 </html>

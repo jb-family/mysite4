@@ -27,14 +27,7 @@
 		<c:import url="/WEB-INF/views/includes/nav.jsp"></c:import>
 		<!-- //nav -->
 	
-		<div id="container" class="clearfix">
-			<div id="aside">
-				<h2>방명록</h2>
-				<ul>
-					<li>일반방명록</li>
-					<li>ajax방명록</li>
-				</ul>
-			</div>
+		<c:import url="/WEB-INF/views/includes/aside.jsp"></c:import>
 			<!-- //aside -->
 
 			<div id="content">
@@ -163,7 +156,7 @@
 			//url : "${pageContext.request.contextPath}/api/guestbook/add?name="+name+"&password="+password+"&content="+content,		
 			url : "${pageContext.request.contextPath}/api/guestbook/add2",		
 			type : "post",
-			contentType : "application/json",
+			contentType : "application/json",	// 보낼때 json으로 보내려고 한다면 contentType : "application/json", 사용하면 된다.
 			//기존 객체를 파라미터로 보내던것을 JSON.stringify 사용 시 객체를 JSON으로 바꿔준다.
 			data : JSON.stringify(guestVo),	//파라미터 정리된다.
 			
@@ -190,7 +183,7 @@
 	
 	
 	/*
-	//기존방식 jquery 파란미터
+	//기존방식 jquery 파라미터
 	//button -> submit 이벤트
 	$("#btnSubmit").on("click", function() {
 		console.log("저장버튼클릭");

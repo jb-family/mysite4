@@ -1,5 +1,7 @@
 package com.javaex.service;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +44,26 @@ public class UserService {
 		
 		int count = userDao.userUpdate(userVo);
 		return count;
+	}
+	
+	
+	//유저아이디 체크
+	public String check(UserVo userVo) {
+		System.out.println("UserService > check()");
+		
+		String idCheck = "";
+		
+		UserVo getIdUser = userDao.getIdUser(userVo);
+		
+		if(getIdUser == null) {
+			idCheck = "success";
+			
+		}else if(getIdUser != null) {
+			idCheck = "fail";
+		}
+		
+		
+		return idCheck;
 	}
 	
 	

@@ -13,10 +13,12 @@
 
 <body>
 	<div id="wrap">
-
-		<!-- 해더 네비 -->
+		
 		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
-		<!-- //해더 네비 -->
+		<!-- //header -->
+		
+		<c:import url="/WEB-INF/views/includes/nav.jsp"></c:import>
+		<!-- //nav -->
 
 
 		<div id="container" class="clearfix">
