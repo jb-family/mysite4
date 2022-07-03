@@ -38,11 +38,10 @@ public class GalleryController {
 	
 	//사진 추가
 	@RequestMapping(value="/gallery/add", method = {RequestMethod.GET, RequestMethod.POST})
-	public String add(@RequestParam("file") MultipartFile file, HttpSession session ,@ModelAttribute GalleryVo galleryVo, Model model) {
+	public String add(@RequestParam("file") MultipartFile file, HttpSession session ,@ModelAttribute GalleryVo galleryVo) {
 		System.out.println("GalleryController > add()");
 		
 		String saveName = galleryService.save(file, galleryVo, session);
-		model.addAttribute("saveName", saveName);
 		return "redirect:/gallery/list";
 	}
 	
