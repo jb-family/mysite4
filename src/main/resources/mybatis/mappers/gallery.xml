@@ -46,11 +46,51 @@
 		]]>
 	</insert>
 
+	<!-- 주소 가져오기 -->
+	<select id="show" parameterType="com.javaex.vo.GalleryVo" resultMap="resultMapGallery">
+		<![CDATA[
+			select  u.id
+			        ,u.password
+			        ,u.name
+			        ,u.gender
+			        ,g.user_no	
+					,g.no
+			       	,g.content
+			        ,g.filePath
+			        ,g.orgName
+			        ,g.saveName
+			        ,g.fileSize
+			from    users u, gallery g
+			where   u.no = g.user_no
+			and		g.saveName = #{saveName}
+		]]>
+	</select>
 
+	<!-- 삭제할 유저정보 가져오기 -->
+	<select id="getUser" parameterType="com.javaex.vo.GalleryVo" resultMap="resultMapGallery">
+			<![CDATA[
+			select  u.id
+			        ,u.password
+			        ,u.name
+			        ,u.gender
+			        ,g.user_no	
+					,g.no
+			       	,g.content
+			        ,g.filePath
+			        ,g.orgName
+			        ,g.saveName
+			        ,g.fileSize
+			from    users u, gallery g
+			where   u.no = g.user_no
+			and		g.no = #{no}
+		]]>
+	</select>
 
-
-
-
+	<!-- 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM gallery
+		WHERE no = #{no}
+	</delete>
 
 
 

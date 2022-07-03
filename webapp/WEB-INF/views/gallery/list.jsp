@@ -44,7 +44,6 @@
 			</div>
 			<!-- //content-head -->
 
-
 			<div id="gallery">
 				<div id="list">
 					<c:choose>
@@ -56,8 +55,8 @@
 					<ul id="viewArea">
 						<!-- 이미지반복영역 -->
  						<c:forEach items="${gList}" var="gList"> 
-						<li>
-							<div class="view" id="t${gList.no}" >
+						<li id="t${gList.no}">
+							<div class="view">
 								<img class="imgItem" src="${pageContext.request.contextPath}/upload/${gList.saveName}">
 								<div class="imgWriter">작성자: <strong>${gList.name}</strong></div>
 							</div>
@@ -124,7 +123,9 @@
 				<div class="modal-body">
 					
 					<div class="formgroup" >
-						<img id="viewModelImg" src ="${pageContext.request.contextPath}/upload/${gList.saveName}"> 		<!-- ajax로 처리 : 이미지출력 위치-->
+						<img id="viewModelImg" src =""> <!-- ajax로 처리 : 이미지출력 위치-->
+						<div id="user"></div>
+						
 					</div>
 					
 					<div class="formgroup">
@@ -134,11 +135,11 @@
 				</div>
 				<form method="" action="">
 					<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-					<button type="button" class="btn btn-danger" id="btnDel">삭제</button>
-				</div>
-				
-				
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+						<button type="button" class="btn btn-danger" id="btnDel">삭제</button>
+					</div>
+					<input id="userNo" type="text" value="">
+					<input id="no" type="text" value="">
 				</form>
 				
 			</div><!-- /.modal-content -->
@@ -149,7 +150,8 @@
 </body>
 
 <script type="text/javascript">
-
+	
+	//이미지 올리기 이벤트
 	$("#btnImgUpload").on("click", function() {
 		console.log("이미지올리기 이벤트");
 		
@@ -173,12 +175,13 @@
 			
 			url : "${pageContext.request.contextPath}/gallery/add",		
 			type : "post",
-			contentType : "application/json",
+			//contentType : "application/json",
 			data : galleryVo,
 			
 			dataType : "json",
 			success : function(saveName){
 				/*성공시 처리해야될 코드 작성*/
+				
 			},
 			error : function(XHR, status, error) {
 				console.error(status + " : " + error);
@@ -188,21 +191,114 @@
 	})
 	
 	
-	$(".view").on("click", function() {
+	//이미지클릭(이미지정보) 이벤트
+	$(".view").on("click", ".imgItem" ,function() {
 		console.log("이미지보기 버튼이벤트");
 		
-		var $this = $(this);
-		console.log($this);
-		var clickId = $this.attr("id");
-		console.log(clickId);
-	
-		
+				var $this = $(this);
+				console.log($this);
+				var src = $this.attr("src");
+				console.log(src);
+				var name = src.split("/");
+				console.log(name);
+				var saveName = name[3];
+				console.log(saveName);
+				
+			 	var galleryVo = {
+					saveName : saveName			
+				}
+				 
+			 	
+			 	$.ajax({
+					
+					url : "${pageContext.request.contextPath}/gallery/show",		
+					type : "post",
+					//contentType : "application/json",
+					data : galleryVo,
+
+					dataType : "json",
+					success : function(fileInfo){
+						/*성공시 처리해야될 코드 작성*/
+						
+						//입력한 파일명 가져오기
+						var fileName = fileInfo.saveName;
+						
+						//눌렀을 때 src값 가져오기
+						var fileLink = $("#viewModelImg").attr("src", "${pageContext.request.contextPath}/upload/"+fileName);
+						
+						//눌렀을 때 파일내용 가져오기
+						var fileContent = $("#user").text(fileInfo.content);
+						
+						//눌렀을 때 파일번호 가져오기
+						var userNo = $("#userNo").val(fileInfo.userNo);
+						console.log(userNo.val());
+						
+						//눌렀을 때 no값 가져오기
+						$("#no").val(fileInfo.no);
+						
+						//authUser No 가져오기
+						var authUser = "${authUser.no}";
+						
+						if(authUser !== userNo.val()) {
+							$("#btnDel").hide();
+						}else if(authUser === userNo.val()) {
+							$("#btnDel").show();
+						}
+						
+					},
+					error : function(XHR, status, error) {
+						console.error(status + " : " + error);
+					}
+				});
+			 	
 		$("#viewModal").modal("show");
 		
 	})
 	
 	
-	
+	//삭제버튼 이벤트
+	$("#btnDel").on("click", function() {
+		console.log("삭제버튼 클릭!!!");
+		
+		
+		var no = $("#no").val();
+		
+		var getNo = {
+				no : no
+		}
+		
+		$.ajax({
+			
+			url : "${pageContext.request.contextPath}/gallery/delete",		
+			type : "post",
+			//contentType : "application/json",
+			data : getNo,
+
+			dataType : "json",
+			success : function(count){
+				/*성공시 처리해야될 코드 작성*/
+				console.log(count);
+				
+				var id = $("#t"+no);
+				console.log("ididididid"+id);
+				
+				if(count === 1) {
+					$("#viewModal").modal("hide");
+					
+					id.remove();
+					
+				
+				} 
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+		
+		
+		
+		
+	})
 	
 	
 	

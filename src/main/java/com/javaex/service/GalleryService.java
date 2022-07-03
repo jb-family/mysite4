@@ -12,6 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.dao.GalleryDao;
@@ -92,6 +95,28 @@ public class GalleryService {
 		return saveName;
 	}
 	
+	//사진 주소 가져오기
+	public GalleryVo show(GalleryVo galleryVo) {
+		System.out.println("GalleryService > show()");
+		
+		GalleryVo fileInfo = galleryDao.show(galleryVo);
+		return fileInfo;
+	}
+	
+	
+	//사진 삭제
+	public int delete(GalleryVo galleryVo) {
+		System.out.println("GalleryService > delete()");
+		
+		//유저정보 가져오기
+		GalleryVo user = galleryDao.getUser(galleryVo);
+		System.out.println(user);
+		int userNo = user.getNo();
+		
+		//유저삭제
+		int count = galleryDao.delete(userNo);
+		return count;
+	}
 	
 	
 }

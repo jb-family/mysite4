@@ -33,4 +33,33 @@ public class GalleryDao {
 		return count;
 	}
 	
+	//갤러리 사진 주소 가져오기
+	public GalleryVo show(GalleryVo galleryVo) {
+		System.out.println("GalleryDao > show()");
+		
+		GalleryVo fileInfo = sqlSession.selectOne("gallery.show",galleryVo);
+		return fileInfo;
+		
+	}
+	
+	//삭제할 유저정보 가져오기
+	public GalleryVo getUser(GalleryVo galleryVo) {
+		System.out.println("GalleryDao > getUser()");
+		
+		GalleryVo user = sqlSession.selectOne("gallery.getUser", galleryVo);
+		System.out.println(user);
+		
+		return user;
+	}
+	
+	//삭제
+	public int delete(int no) {
+		System.out.println("GalleryDao > delete()");
+		
+		int count = sqlSession.delete("gallery.delete", no);
+		return count;
+	}
+	
+	
+	
 }
