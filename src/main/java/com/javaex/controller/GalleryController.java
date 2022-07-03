@@ -26,13 +26,13 @@ public class GalleryController {
 	
 	//사진 리스트
 	@RequestMapping(value="/gallery/list", method= {RequestMethod.GET, RequestMethod.POST})
-	public String gallery(Model model) {
-		System.out.println("GalleryController > gallery()");
+	public String addList(Model model) {
+		System.out.println("GalleryController > addList()");
 		
 		List<GalleryVo> gList = galleryService.selectList();
 		
 		model.addAttribute("gList", gList);
-		return "gallery/list";
+		return "/gallery/list";
 	}
 	
 	

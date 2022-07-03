@@ -150,6 +150,7 @@
 </body>
 
 <script type="text/javascript">
+
 	
 	//이미지 올리기 이벤트
 	$("#btnImgUpload").on("click", function() {
@@ -207,7 +208,6 @@
 			 	var galleryVo = {
 					saveName : saveName			
 				}
-				 
 			 	
 			 	$.ajax({
 					
@@ -259,7 +259,6 @@
 	//삭제버튼 이벤트
 	$("#btnDel").on("click", function() {
 		console.log("삭제버튼 클릭!!!");
-		
 		
 		var no = $("#no").val();
 		
