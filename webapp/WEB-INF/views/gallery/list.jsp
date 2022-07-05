@@ -180,7 +180,7 @@
 			data : galleryVo,
 			
 			dataType : "json",
-			success : function(saveName){
+			success : function(result){
 				/*성공시 처리해야될 코드 작성*/
 				
 			},

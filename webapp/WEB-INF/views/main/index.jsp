@@ -20,11 +20,11 @@
 		<c:import url="/WEB-INF/views/includes/nav.jsp"></c:import>
 		<!-- //nav -->
 
+		<c:import url="/WEB-INF/views/includes/aside.jsp"></c:import>
+		<!-- //aside -->
 		
-		<div id="container" class="clearfix">
-			<!-- aside 없음 -->
-			<div id="full-content">
-			
+		<a href="${pageContext.request.contextPath}/rboard/list"><strong>rBoard</strong></a>
+		<!-- //rboard -->
 				<!-- content-head 없음 -->
 				<div id="index"> 
 				

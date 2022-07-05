@@ -13,8 +13,55 @@
 		<result column="user_no" property="userNo" />
 	</resultMap>
 	
+	<select id="selectList4" resultMap="resultMapBoard" parameterType="Map">
+		<![CDATA[
+			select  ort.rn
+			        ,ort.no
+			        ,ort.title
+			        ,ort.content
+			        ,ort.hit
+			        ,ort.regDate
+			        ,ort.userNo
+			        ,ort.userName
+			from    (select  rownum rn
+			                 ,ot.no
+			                 ,ot.title
+			                 ,ot.content
+			                 ,ot.hit
+			                 ,ot.regDate
+			                 ,ot.userNo
+			                 ,ot.userName
+			         from       (select  b.no
+			                             ,b.title
+			                             ,b.content
+			                             ,b.hit
+			                             ,b.reg_date regDate
+			                             ,b.user_no userNo
+			                             ,u.name userName
+			                     from    board b, users u
+			                     where   b.user_no = u.no
+			                     order by no desc) ot
+			         )ort
+			where   ort.rn >= #{startRnum}
+			and     ort.rn <= #{endRnum}
+		]]>
+	</select>
+	
+	<!-- 전체글갯수 구하기 -->
+	<select id="selectTotalCnt" resultType="int">
+		<![CDATA[
+			select  count(*) count
+			from    board b, users u
+			where   b.user_no = u.no
+		]]>
+	</select>
 	
 	
+	
+	
+	
+	
+	<!-- 리스트 일반+검색
 	<select id="selectList" resultMap="resultMapBoard" parameterType="String">
 		<![CDATA[
 			select  b.no
@@ -37,7 +84,7 @@
 		]]>
 		
 	</select>
-	
+	 -->
 	<insert id="insert" parameterType="com.javaex.vo.BoardVo">
 		<![CDATA[
 			insert into board

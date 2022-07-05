@@ -1,6 +1,7 @@
 package com.javaex.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -24,6 +25,22 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
+	
+	
+	//리스트 불러오기 (일반 )
+		@RequestMapping(value="/list4", method = {RequestMethod.GET, RequestMethod.POST})
+		public String list(Model model, 
+					@RequestParam(value = "crtPage", required = false, defaultValue = "1") int crtPage) {
+			System.out.println("BoardController > list4");
+			
+			Map<String, Object> pMap = boardService.getBoardList4(crtPage);
+			model.addAttribute("pMap", pMap);
+			
+			System.out.println("controller > pMap");
+			
+			return "board/list4";	
+		}
+	
 	
 	//리스트 불러오기 (검색기능 +)
 	@RequestMapping(value="/list", method = {RequestMethod.GET, RequestMethod.POST})
@@ -55,7 +72,7 @@ public class BoardController {
 		boardVo.setUserNo(userNo);
 		
 		boardService.insert(boardVo);
-		return "redirect:/board/list";
+		return "redirect:/board/list4";
 	}
 
 	//유저가 작성한 글 보기

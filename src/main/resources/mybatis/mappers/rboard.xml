@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="rboard">
+	
+	<resultMap id="resultMapRboard" type="com.javaex.vo.RboardVo">
+		<result column="password" property="password" />
+		<result column="name" property="name" />
+		<result column="gender" property="gender" />
+		<result column="no" property="no" />
+		<result column="user_no" property="userNo" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="hit" property="hit" />
+		<result column="reg_date" property="regDate" />
+		<result column="group_no" property="groupNo" />
+		<result column="order_no" property="orderNo" />
+		<result column="depth" property="depth" />
+	</resultMap>
+	
+	<!-- 리스트 가져오기 (검색 + )-->
+	<select id="list" resultMap="resultMapRboard" parameterType="String">
+		<![CDATA[
+						select      u.id
+			            ,u.password
+			            ,u.name
+			            ,u.gender
+			            ,r.no
+			            ,r.user_no
+			            ,r.title
+			            ,r.content
+			            ,r.hit
+			            ,to_char(r.reg_date,'YYYY-MM-DD HH:MI') "reg_date"
+			            ,r.group_no
+			            ,r.order_no
+			            ,r.depth
+			from        users u, rboard r
+			where       u.no = r.user_no
+		]]>
+		
+			<if test="value != ''  and  value != null ">  
+				and title like '%'||#{keyword}||'%'   
+			</if>
+			
+		<![CDATA[
+			order by	r.group_no desc, order_no asc
+		]]>
+	</select>
+
+
+	<!-- 글 추가 -->
+	<insert id="insert" parameterType="com.javaex.vo.RboardVo">
+		<![CDATA[
+			insert into rboard
+			values (seq_rboard_no.nextval, #{userNo}, #{title}, #{content}, 0, sysdate, seq_rboard_no.nextval, 1, 0)
+		]]>
+	</insert>
+
+	<!-- 글 작성자 정보 가져오기 -->
+	<select id="getUser" parameterType="int" resultMap="resultMapRboard">
+		<![CDATA[
+			select      u.id
+			            ,u.password
+			            ,u.name
+			            ,u.gender
+			            ,r.no
+			            ,r.user_no
+			            ,r.title
+			            ,r.content
+			            ,r.hit
+			            ,to_char(r.reg_date,'YYYY-MM-DD HH:MI') "reg_date"
+			            ,r.group_no
+			            ,r.order_no
+			            ,r.depth
+			from        users u, rboard r
+			where       u.no = r.user_no
+			and			r.no = #{no}			
+		]]>
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="hitUp" parameterType="int">
+		<![CDATA[
+			UPDATE rboard 
+			SET hit = hit + 1
+			where no = #{no}
+		]]>
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="delete" parameterType="int">
+		<![CDATA[
+			delete from rboard
+			where no = #{no}
+		]]>
+	</delete>
+	
+	<!-- 수정 -->
+	<update id="update" parameterType="com.javaex.vo.RboardVo">
+		<![CDATA[
+			update	rboard
+			set		title = #{title}
+			        ,content = #{content}
+			where no = #{no}
+		]]>
+	</update>
+	
+	<!-- 글 작성자 정보 가져오기 -->
+	<select id="getUserInfo" parameterType="int" resultMap="resultMapRboard">
+		<![CDATA[
+			select      u.id
+			            ,u.password
+			            ,u.name
+			            ,u.gender
+			            ,r.no
+			            ,r.user_no
+			            ,r.title
+			            ,r.content
+			            ,r.hit
+			            ,to_char(r.reg_date,'YYYY-MM-DD HH:MI') "reg_date"
+			            ,r.group_no
+			            ,r.order_no
+			            ,r.depth
+			from        users u, rboard r
+			where       u.no = r.user_no
+			and			r.no = #{no}			
+		]]>
+	</select>
+	
+	
+	
+	
+	
+	
+	<!-- 댓글 추가 -->
+	<insert id="commentInsert" parameterType="com.javaex.vo.RboardVo">
+		<![CDATA[
+			insert into rboard
+			values (seq_rboard_no.nextval, #{userNo}, #{title}, #{content}, 0, sysdate, #{groupNo}, ${orderNo}, ${depth})
+		]]>
+	</insert>
+	
+	
+	<!-- orderNo 증가 -->	
+	<update id="orderUp" parameterType="com.javaex.vo.RboardVo">
+		<![CDATA[
+			UPDATE rboard 
+			SET order_no = order_no + 1
+			where no = #{no}
+		]]>
+	</update>
+	
+	<!-- 댓글 작성자 (groupNo) 정보 가져오기 -->
+	<select id="groupInfo" parameterType="com.javaex.vo.RboardVo" resultMap="resultMapRboard">
+		<![CDATA[
+			select      u.id
+			            ,u.password
+			            ,u.name
+			            ,u.gender
+			            ,r.no
+			            ,r.user_no
+			            ,r.title
+			            ,r.content
+			            ,r.hit
+			            ,to_char(r.reg_date,'YYYY-MM-DD HH:MI') "reg_date"
+			            ,r.group_no
+			            ,r.order_no
+			            ,r.depth
+			from        users u, rboard r
+			where       u.no = r.user_no
+			and			r.no = #{no}			
+		]]>
+	</select>
+	
+	
+	
+	<!-- 댓글 추가한 정보 가져오기 -->
+	<select id="userInfo" parameterType="com.javaex.vo.RboardVo" resultMap="resultMapRboard">
+		<![CDATA[
+			select      u.id
+			            ,u.password
+			            ,u.name
+			            ,u.gender
+			            ,r.no
+			            ,r.user_no
+			            ,r.title
+			            ,r.content
+			            ,r.hit
+			            ,to_char(r.reg_date,'YYYY-MM-DD HH:MI') "reg_date"
+			            ,r.group_no
+			            ,r.order_no
+			            ,r.depth
+			from        users u, rboard r
+			where       u.no = r.user_no
+			and			r.no = #{no}
+		]]>
+	</select>
+
+</mapper>

@@ -54,13 +54,13 @@ public class GalleryService {
 		
 		//오리지널 파일명
 		String orgName = file.getOriginalFilename();
-		
+		System.out.println(orgName);
 		//확장자
 		String exName = orgName.substring(orgName.lastIndexOf("."));
-		
+		System.out.println(exName);
 		//저장 파일명
 		String saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName; 
-		
+		System.out.println(saveName);
 		//파일경로(디렉토리 + 저장파일명)
 		String filePath = saveDir + "\\" + saveName;
 		
@@ -75,8 +75,6 @@ public class GalleryService {
 		
 		
 		galleryDao.insert(galleryVo);
-		
-		
 		
 
 		try {
