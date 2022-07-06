@@ -17,20 +17,29 @@ public class BoardDao {
 	private SqlSession sqlSession;
 	
 	//리스트(일반)
-	public List<BoardVo> selectList4(int startRnum, int endRnum) {
+	public List<BoardVo> selectList4(int startRnum, int endRnum, String keyword) {
 		System.out.println("BoardDao > selectList4()");
 		
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRnum", startRnum);
 		map.put("endRnum", endRnum);
-		System.out.println(map);
+		map.put("keyword", keyword);
 		List<BoardVo> boardList = sqlSession.selectList("board.selectList4", map);
-		System.out.println(boardList);
 		return boardList;
 		
 		
-		
 	}
+	
+	//검색글 개수
+	public int selectSearchCnt(String keyword) {
+		System.out.println("BoardDao > selectTotalCnt()");
+		
+		int searchCnt = sqlSession.selectOne("board.selectSearchCnt", keyword);
+		System.out.println("searchCnt : "+searchCnt);
+		return searchCnt;
+	}
+	
+	
 	
 	//전체글 개수
 	public int selectTotalCnt() {
@@ -90,6 +99,8 @@ public class BoardDao {
 		int count = sqlSession.update("board.update", boardVo);
 		return count;
 	}
+
+
 	
 	
 }

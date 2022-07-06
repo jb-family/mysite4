@@ -52,9 +52,9 @@
 							<input type="hidden" name="groupNo" value="${user.groupNo}">
 							<input type="hidden" name="orderNo" value="${user.orderNo}">
 							<input type="hidden" name="depth" value="${user.depth}">
-							<input type="hidden" name="no" value="${user.no}">
+							<input type="hidden" name="userNo" value="${user.userNo}">
 								<label class="form-text" for="txt-title">제목</label>
-								<input type="text" id="txt-title" name="title" value="re: " placeholder="제목을 입력해 주세요">
+								<input type="text" id="txt-title" name="title" value="" placeholder="제목을 입력해 주세요">
 							</div>
 						
 							<!-- 내용 -->

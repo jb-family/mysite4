@@ -104,7 +104,6 @@ public class RboardController {
 	@RequestMapping(value="/rboard/comment", method = {RequestMethod.GET, RequestMethod.POST})
 	public String commentInsert(@ModelAttribute RboardVo rBoardVo) {
 		System.out.println("RboardController > comment()");
-		System.out.println("d"+rBoardVo);
 		rBoardService.commentInsert(rBoardVo);
 		
 		return "redirect:/rboard/list";

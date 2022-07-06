@@ -17,13 +17,12 @@ public class BoardService {
 	private BoardDao boardDao;
 	
 	//리스트(일반)
-	public Map<String, Object> getBoardList4(int crtPage) {
+	public Map<String, Object> getBoardList4(int crtPage, String keyword) {
 		System.out.println("BoardService > getBoardList4()");
 		
 		////////////////////////////////////////////////
 		//					리스트 가져오기				  //
 		////////////////////////////////////////////////
-		
 		
 		//현재페이지
 		crtPage = (crtPage > 0) ? crtPage : (crtPage = 1);
@@ -35,7 +34,12 @@ public class BoardService {
 		//마지막 글번호
 		int endRnum = (startRnum + listCnt) -1;
 		
-		List<BoardVo> boardList = boardDao.selectList4(startRnum, endRnum);
+		List<BoardVo> boardList = boardDao.selectList4(startRnum, endRnum, keyword);
+		System.out.println("boarList::::::::::::" + boardList);
+		
+		//검색글갯수
+		int searchCnt = boardDao.selectSearchCnt(keyword);
+		System.out.println("searchCnt : "+searchCnt);
 		
 		
 		
@@ -62,6 +66,7 @@ public class BoardService {
 		//이전 화살표 유무
 		boolean prev = false;
 		
+		
 		if( (listCnt * endPageBtnNo) < totalCnt ) {// ex) 50 < 127 true
 			next = true;
 		}else {
@@ -78,20 +83,7 @@ public class BoardService {
 		pMap.put("startPageBtnNo", startPageBtnNo);
 		pMap.put("endPageBtnNo", endPageBtnNo);
 		pMap.put("next", next);
-		
-		
-		System.out.println(pMap);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		pMap.put("searchCnt", searchCnt);
 		return pMap;
 	}
 	

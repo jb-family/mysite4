@@ -25,6 +25,13 @@ public class RboardService {
 	public List<RboardVo> list(String keyword) {
 		System.out.println("RboardService > list()");
 		List<RboardVo> rList = rBoardDao.list(keyword);
+
+		//공백
+		for(int i = 0; i < rList.size(); i++) {
+			for(int j = 0; j < rList.get(i).getDepth(); j++) {
+				rList.get(i).setTitle("&ensp;" + rList.get(i).getTitle());
+			}
+		}
 		
 		return rList;
 	}
@@ -89,33 +96,9 @@ public class RboardService {
 	public int commentInsert(RboardVo rBoardVo) {
 		System.out.println("RboardService > commentInsert()");
 		
-		//정보 가져오기
-		
-		//RboardVo parents = rBoardDao.groupInfo(no);
-		RboardVo parents = rBoardDao.userInfo(rBoardVo);
-		//System.out.println("부모 값"+parents);
-		
-		String name = parents.getName();
-		String id = parents.getId();
-		String password = parents.getPassword();
-		String gender = parents.getGender();
-		int userNo = parents.getUserNo();
-		int hit = parents.getHit();
-		String regDate = parents.getRegDate();
-		
-		rBoardVo.setName(name);
-		rBoardVo.setId(id);
-		rBoardVo.setPassword(password);
-		rBoardVo.setGender(gender);
-		rBoardVo.setUserNo(userNo);
-		rBoardVo.setHit(hit);
-		rBoardVo.setRegDate(regDate);
-		
-		System.out.println("검사검사"+rBoardVo);
-		
 		//자식정보 추가
 		rBoardDao.commentInsert(rBoardVo);
-		System.out.println("인서트 후 Vo"+rBoardVo);
+		System.out.println("자식값;;;;;;;;"+rBoardVo);
 		
 		//order_no 증가
 		int count = rBoardDao.orderUp(rBoardVo);

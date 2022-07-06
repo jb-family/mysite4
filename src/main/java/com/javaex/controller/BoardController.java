@@ -30,13 +30,13 @@ public class BoardController {
 	//리스트 불러오기 (일반 )
 		@RequestMapping(value="/list4", method = {RequestMethod.GET, RequestMethod.POST})
 		public String list(Model model, 
-					@RequestParam(value = "crtPage", required = false, defaultValue = "1") int crtPage) {
+					@RequestParam(value = "crtPage", required = false, defaultValue = "1") int crtPage
+					,@RequestParam(value = "keyword", defaultValue = "", required =false) String keyword) {
 			System.out.println("BoardController > list4");
 			
-			Map<String, Object> pMap = boardService.getBoardList4(crtPage);
+			Map<String, Object> pMap = boardService.getBoardList4(crtPage, keyword);
 			model.addAttribute("pMap", pMap);
-			
-			System.out.println("controller > pMap");
+			System.out.println(":::::::::::::::::::::::::::"+pMap);
 			
 			return "board/list4";	
 		}

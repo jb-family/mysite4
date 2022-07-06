@@ -78,8 +78,6 @@ public class RboardDao {
 	}
 	
 	
-	
-	
 	//댓글 추가
 	public int commentInsert(RboardVo rBoardVo) {
 		System.out.println("RboardDao > commentInsert()");
@@ -96,24 +94,6 @@ public class RboardDao {
 		int count = sqlSession.update("rboard.orderUp", rBoardVo);
 		return count;
 	}
-	
-	//댓글 작성자 (groupNo) 정보 가져오기
-	public RboardVo groupInfo(int no) {
-		System.out.println("RboardDao > getUserInfo()");
-		
-		RboardVo user = sqlSession.selectOne("rboard.groupInfo", no);
-		return user;
-	}
-	
-	
-	//자식정보 가져오기 
-	public RboardVo userInfo(RboardVo rBoardVo) {
-		System.out.println("RboardDao > userInfo()");
-		System.out.println("왜안나와 시발아"+rBoardVo);
-		RboardVo rVo = sqlSession.selectOne("rboard.userInfo", rBoardVo);
-		return rVo;
-	}
-	
 	
 	
 }

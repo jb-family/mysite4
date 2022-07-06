@@ -107,15 +107,10 @@
 									</c:choose>
 								</c:forEach>
 								
-								
-								
-								
-								
 								<c:if test="${pMap.next}">
 									<li><a href="${pageContext.request.contextPath}/board/list4?crtPage=${pMap.endPageBtnNo + 1}">▶</a></li>
 								</c:if>
 							</ul>
-							
 							
 							<div class="clear"></div>
 						</div>

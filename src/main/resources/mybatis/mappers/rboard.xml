@@ -129,14 +129,11 @@
 	
 	
 	
-	
-	
-	
 	<!-- 댓글 추가 -->
 	<insert id="commentInsert" parameterType="com.javaex.vo.RboardVo">
 		<![CDATA[
 			insert into rboard
-			values (seq_rboard_no.nextval, #{userNo}, #{title}, #{content}, 0, sysdate, #{groupNo}, ${orderNo}, ${depth})
+			values (seq_rboard_no.nextval, #{userNo}, #{title}, #{content}, 0, sysdate, #{groupNo}, #{orderNo}, #{depth}+1)
 		]]>
 	</insert>
 	
@@ -144,56 +141,14 @@
 	<!-- orderNo 증가 -->	
 	<update id="orderUp" parameterType="com.javaex.vo.RboardVo">
 		<![CDATA[
-			UPDATE rboard 
-			SET order_no = order_no + 1
-			where no = #{no}
+			UPDATE	rboard 
+			SET		order_no = order_no + 1
+			where 	group_no =  #{groupNo}
+			and		depth >     #{depth} 
+			or		order_no > #{orderNo}
 		]]>
 	</update>
 	
-	<!-- 댓글 작성자 (groupNo) 정보 가져오기 -->
-	<select id="groupInfo" parameterType="com.javaex.vo.RboardVo" resultMap="resultMapRboard">
-		<![CDATA[
-			select      u.id
-			            ,u.password
-			            ,u.name
-			            ,u.gender
-			            ,r.no
-			            ,r.user_no
-			            ,r.title
-			            ,r.content
-			            ,r.hit
-			            ,to_char(r.reg_date,'YYYY-MM-DD HH:MI') "reg_date"
-			            ,r.group_no
-			            ,r.order_no
-			            ,r.depth
-			from        users u, rboard r
-			where       u.no = r.user_no
-			and			r.no = #{no}			
-		]]>
-	</select>
 	
-	
-	
-	<!-- 댓글 추가한 정보 가져오기 -->
-	<select id="userInfo" parameterType="com.javaex.vo.RboardVo" resultMap="resultMapRboard">
-		<![CDATA[
-			select      u.id
-			            ,u.password
-			            ,u.name
-			            ,u.gender
-			            ,r.no
-			            ,r.user_no
-			            ,r.title
-			            ,r.content
-			            ,r.hit
-			            ,to_char(r.reg_date,'YYYY-MM-DD HH:MI') "reg_date"
-			            ,r.group_no
-			            ,r.order_no
-			            ,r.depth
-			from        users u, rboard r
-			where       u.no = r.user_no
-			and			r.no = #{no}
-		]]>
-	</select>
 
 </mapper>
