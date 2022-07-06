@@ -37,7 +37,7 @@ public class BoardController {
 			Map<String, Object> pMap = boardService.getBoardList4(crtPage, keyword);
 			model.addAttribute("pMap", pMap);
 			System.out.println(":::::::::::::::::::::::::::"+pMap);
-			
+			//test
 			return "board/list4";	
 		}
 	
